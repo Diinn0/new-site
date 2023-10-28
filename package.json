@@ -11,7 +11,11 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "@nuxtjs/tailwindcss": "^6.8.1",
+    "autoprefixer": "^10.4.16",
     "nuxt": "^3.8.0",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5",
     "vue": "^3.3.7",
     "vue-router": "^4.2.5"
   },
@@ -20,6 +24,8 @@
     "firebase": "^10.5.2",
     "firebase-admin": "^11.11.0",
     "firebase-functions": "^4.4.1",
+    "flowbite": "^2.0.0",
+    "flowbite-vue": "^0.1.0",
     "nuxt-vuefire": "^0.4.0",
     "vuefire": "^3.1.17"
   }
