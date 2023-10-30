@@ -20,7 +20,7 @@ export default defineNuxtConfig({
     appCheck: {
       // Allows you to use a debug token in development
       debug: process.env.NODE_ENV !== 'production',
-      isTokenAutoRefreshEnabled: true,
+      isTokenAutoRefreshEnabled: false,
       provider: 'ReCaptchaV3',
       // Find the instructions in the Firebase documentation, link above
       key: process.env.RECAPTCHAKEY,
