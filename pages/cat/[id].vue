@@ -3,9 +3,9 @@ import {doc, getDoc, getFirestore} from "@firebase/firestore/lite";
 import { useDocument } from 'vuefire'
 
 const route = useRoute();
-const db = getFirestore()
+const db = getFirestore();
 
-const cat = (await getDoc(doc(db, 'chat', route.params.id.toString()))).data()
+const cat = (await getDoc(doc(db, 'chat', route.params.id.toString()))).data();
 
 if (cat == undefined)
 {
@@ -18,6 +18,8 @@ if (cat == undefined)
   })
 }
 
+const tests = cat.tests;
+
 </script>
 
 <template>
@@ -27,7 +29,24 @@ if (cat == undefined)
       <img class="w-full hidden dark:block" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/cta/cta-dashboard-mockup-dark.svg" alt="dashboard image">
       <div class="mt-4 md:mt-0">
         <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">{{ cat.name }}</h2>
-        <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">Flowbite helps you connect with friends and communities of people who share your interests. Connecting with your friends and family as well as discovering new ones is easy with features like Groups.</p>
+
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-5">
+          <div>
+            <p class="font-light text-gray-500 md:text-lg dark:text-gray-400">{{ cat.sexe == 0 ? 'Femelle' : 'Male' }}</p>
+            <p class="font-light text-gray-500 md:text-lg dark:text-gray-400"><strong class="font-bold">{{ cat.sexe == 0 ? 'Née' : 'Né' }} le: </strong>{{ cat.dateOfBirth.toDate().toLocaleDateString("fr") }}</p>
+          </div>
+          <div>
+            <strong class="font-bold">Tests santé:</strong>
+            <ul class="mt-2 space-y-1 list-none list-inside">
+              <li v-for="test in tests">{{ test }}</li>
+            </ul>
+          </div>
+        </div>
+
+        <strong class="fond-bold">Description:</strong>
+        <p>{{ cat.description }}</p>
+
+
       </div>
     </div>
   </section>
