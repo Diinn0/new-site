@@ -25,5 +25,8 @@ export default defineNuxtConfig({
       // Find the instructions in the Firebase documentation, link above
       key: process.env.RECAPTCHAKEY,
     },
+    auth: {
+      enabled: true
+    },
   },
 })
