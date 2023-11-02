@@ -1,4 +1,6 @@
 <script setup>
+import 'flowbite';
+
 import { onMounted } from 'vue'
 import { initFlowbite } from 'flowbite'
 
