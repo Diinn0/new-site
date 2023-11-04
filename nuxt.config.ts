@@ -25,7 +25,8 @@ export default defineNuxtConfig({
       key: process.env.RECAPTCHAKEY,
     },
     auth: {
-      enabled: true
+      enabled: true,
+      sessionCookie: true
     },
   },
 })
