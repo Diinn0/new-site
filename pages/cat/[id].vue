@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import {doc, getDoc, getFirestore} from "@firebase/firestore/lite";
+import { useFirestore } from 'vuefire'
+import {doc, getDoc} from "firebase/firestore";
 import { useDocument } from 'vuefire'
 
 const route = useRoute();
-const db = getFirestore();
+const db = useFirestore();
 
 const cat = (await getDoc(doc(db, 'chat', route.params.id.toString()))).data();
 
