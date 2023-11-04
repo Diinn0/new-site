@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['nuxt-vuefire', "@nuxtjs/tailwindcss", "@nuxt/image"],
+  modules: ['nuxt-vuefire', "@nuxt/image", '@nuxt/ui'],
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -29,4 +29,14 @@ export default defineNuxtConfig({
       sessionCookie: true
     },
   },
+  colorMode: {
+    preference: 'light', // default value of $colorMode.preference
+    fallback: 'light', // fallback value if not system preference found
+    hid: 'nuxt-color-mode-script',
+    globalName: '__NUXT_COLOR_MODE__',
+    componentName: 'ColorScheme',
+    classPrefix: '',
+    classSuffix: '',
+    storageKey: 'nuxt-color-mode'
+  }
 })

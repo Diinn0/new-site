@@ -22,6 +22,16 @@
       })
     }
   }
+const isDark = computed({
+  get () {
+    return colorMode.preference === 'dark';
+  },
+  set () {
+    colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
+  }
+})
+
+
 </script>
 
 <template>
@@ -66,6 +76,14 @@
             <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
         </div>
         <div class="flex items-center lg:order-2">
+          
+          <UToggle
+              off-icon="i-heroicons-sun-20-solid"
+              on-icon="i-heroicons-moon-20-solid"
+              class="mr-2"
+              v-model="isDark"
+          />
+
           <!-- Notifications -->
           <button
               type="button"
