@@ -1,14 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['nuxt-vuefire', "@nuxtjs/tailwindcss"],
+  modules: ['nuxt-vuefire', "@nuxtjs/tailwindcss", "@nuxt/image"],
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
   },
-
   vuefire: {
     config: {
       apiKey: process.env.APIKEY,
