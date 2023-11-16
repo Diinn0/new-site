@@ -6,7 +6,7 @@ const user = useCurrentUser()
 
 let userAuth = null;
 
-if (user) {
+if (user.value != null) {
   const db = useFirestore();
   userAuth = (await getDoc(doc(db, 'users', user.value.uid))).data();
 }
