@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['nuxt-vuefire', "@nuxt/image", '@nuxt/ui'],
+  modules: ['nuxt-vuefire', "@nuxt/image", '@nuxt/ui', '@formkit/auto-animate/nuxt'],
   postcss: {
     plugins: {
       tailwindcss: {},
