@@ -141,6 +141,7 @@ const toast = useToast()
 const db = useFirestore()
 const cats = useDocument(collection(db, 'chat'))
 
+
 let isConfirmDelOpen = ref(false)
 let delCatName = '';
 let delCatId = '';

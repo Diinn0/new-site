@@ -1,9 +1,10 @@
 <script setup>
 import {useFirestore} from 'vuefire'
-import {doc, getDoc, Timestamp} from "firebase/firestore";
+import {addDoc, collection, doc, getDoc, Timestamp} from "firebase/firestore";
 import {useDocument} from 'vuefire'
 import {initFlowbite} from "flowbite";
 import moment from "moment";
+import {updateDoc} from "@firebase/firestore";
 
 onMounted(() => {
   initFlowbite();
@@ -17,11 +18,11 @@ definePageMeta({
 const route = useRoute();
 const db = useFirestore();
 
-const cat = (await getDoc(doc(db, 'chat', route.params.id.toString()))).data();
+const catRef = doc(db, 'chat', route.params.id.toString());
+const catObject = (await getDoc(catRef));
+const cat = catObject.data();
 
-let date = moment(new Date(cat.dateOfBirth.seconds * 1000)).format('YYYY-MM-D');
-
-if (cat == undefined) {
+if (cat === undefined) {
   throw createError({
     statusCode: 404,
     statusMessage: 'Page Not Found',
@@ -30,8 +31,36 @@ if (cat == undefined) {
     }
   })
 }
+let date = moment(new Date(cat.dateOfBirth.seconds * 1000)).format('YYYY-MM-D');
+let tests = ref(cat.tests);
 
-const tests = cat.tests;
+if (tests === undefined) {
+  tests = ref([]);
+}
+
+let addEmptyTest = () => {
+  tests.value.push('')
+}
+
+let removeTest = (index) => {
+  tests.value.splice(index, 1);
+}
+
+const submit = () => {
+  cat.dateOfBirth = Timestamp.fromDate(new Date(date))
+  console.log(cat.dateOfBirth)
+  cat.tests = tests.value;
+  let res = updateDoc(catRef, cat)
+
+  res.then((value) => {
+    return navigateTo({
+      path: '/admin/cats',
+    })
+  }).catch((error) => {
+    console.log("error")
+  })
+}
+
 </script>
 
 <template>
@@ -106,14 +135,16 @@ const tests = cat.tests;
           <div class="grid gap-4 sm:col-span-2 md:gap-6 sm:grid-cols-4 place-content-between">
             <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tests</label>
             <div class="col-end-6 col-span-1">
-              <button class="flex items-center justify-center w-9 h-9 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-lg toggle-full-view hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-500 dark:bg-gray-800 focus:outline-none dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              <a @click="addEmptyTest()" class="cursor-pointer flex items-center justify-center w-9 h-9 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-lg toggle-full-view hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-500 dark:bg-gray-800 focus:outline-none dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                 <Icon name="ic:baseline-plus" size="2em"/>
-              </button>
+              </a>
             </div>
           </div>
-            <div class="relative mt-2">
-              <input type="text" id="search" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-              <button type="submit" class="absolute end-1 bottom-1"><icon class="text-red-600 hover:text-red-800" name="charm:cross" size="2em"></icon></button>
+            <div class="relative mt-2" v-for="(test, index) in tests" :key="index">
+              <div>
+                <input @input="event => tests[index] = event.target.value" type="text" :value="test" id="search" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <a @click="removeTest(index)" class="absolute end-1 bottom-1 cursor-pointer"><icon class="text-red-600 hover:text-red-800" name="charm:cross" size="2em"></icon></a>
+              </div>
             </div>
         </div>
       </div>
@@ -123,7 +154,7 @@ const tests = cat.tests;
               class="w-full sm:w-auto justify-center text-white inline-flex bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
         Ajouter
       </button>
-      <button data-modal-toggle="createProductModal" type="button"
+      <button type="button"
               class="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
         <svg class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd"
