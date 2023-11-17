@@ -7,4 +7,5 @@ import 'flowbite';
   <NuxtLayout>
     <NuxtPage/>
   </NuxtLayout>
+  <UNotifications />
 </template>

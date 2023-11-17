@@ -1,5 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  ui: {
+    notifications: {
+      // Show toasts at the top right of the screen
+      position: 'top-0 bottom-auto'
+    }
+  },
   devtools: { enabled: true },
   modules: ['nuxt-vuefire', "@nuxt/image", '@nuxt/ui', '@formkit/auto-animate/nuxt', 'nuxt-icon'],
   postcss: {
