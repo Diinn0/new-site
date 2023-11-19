@@ -31,7 +31,7 @@ if (cat === undefined) {
     }
   })
 }
-let date = moment(new Date(cat.dateOfBirth.seconds * 1000)).format('YYYY-MM-D');
+let date = moment(new Date(cat.dateOfBirth.seconds * 1000)).format('YYYY-MM-DD');
 let tests = ref(cat.tests);
 
 if (tests === undefined) {
