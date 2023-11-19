@@ -36,7 +36,8 @@ let form =  {
       neutre: false,
       description: '',
       pawpedsLink:'',
-      dateOfBirth: ''
+      dateOfBirth: '',
+      tests: []
 }
 
 let dateUnformated = ''
