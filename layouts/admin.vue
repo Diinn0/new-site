@@ -20,8 +20,6 @@ if (user) {
     })
   }
 
-  console.log(userAuth)
-
   if (userAuth.admin != true) {
     navigateTo({
       path: '/',
