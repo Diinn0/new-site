@@ -33,6 +33,7 @@
     "flowbite-vue": "^0.1.0",
     "moment": "^2.29.4",
     "nuxt-vuefire": "^0.4.0",
+    "uid": "^2.0.2",
     "vuefire": "^3.1.17"
   }
 }
