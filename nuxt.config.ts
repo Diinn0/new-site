@@ -20,6 +20,7 @@ export default defineNuxtConfig({
       authDomain: process.env.AUTHDOMAIN,
       projectId: process.env.PROJECTID,
       appId: process.env.APPID,
+      storageBucket: process.env.STORAGEBUCKET
       // there could be other properties depending on the project
     },
     appCheck: {
