@@ -5,7 +5,7 @@ import {useDocument} from 'vuefire'
 import {initFlowbite} from "flowbite";
 import moment from "moment";
 import {updateDoc} from "@firebase/firestore";
-import {ref as storageRef, listAll} from 'firebase/storage'
+import {ref as storageRef, listAll, getDownloadURL } from 'firebase/storage'
 import {useFirebaseStorage, useStorageFile} from 'vuefire'
 import {uid} from "uid";
 
@@ -27,6 +27,8 @@ const catObject = (await getDoc(catRef));
 const cat = catObject.data();
 // use to store pre selected files
 let FILES = {};
+let gallery = undefined;
+let empty = undefined;
 
 const toast = useToast();
 
@@ -34,16 +36,26 @@ const metadata = {
   contentType: 'image/jpeg'
 };
 
-let images = [];
+let images = ref([]);
 
-// listAll(catRef)
-//     .then((res) => {
-//       res.items.forEach((itemRef) => {
-//         images.push(itemRef);
-//       });
-//     }).catch((error) => {
-//   // Uh-oh, an error occurred!
-// });
+
+let refreshImage = () => {
+  listAll( storageRef(storage, `cat/${route.params.id.toString()}`))
+      .then((res) => {
+        res.items.forEach((itemRef) => {
+          getDownloadURL(itemRef)
+              .then((url) => {
+                images.value.push(url);
+              })
+              .catch((error) => {
+                // Handle any errors
+              });
+        });
+      }).catch((error) => {
+  });
+}
+
+refreshImage();
 
 if (cat === undefined) {
   throw createError({
@@ -75,14 +87,19 @@ const submit = () => {
   cat.tests = tests.value;
 
   for (const [name, obj] of Object.entries(FILES)) {
-    let storageFileRef = storageRef(storage, `cat/${route.params.id.toString()}/${uid(16)}.jpg`)
-    const {
-      upload,
-    } = useStorageFile(storageFileRef)
-
-    if (obj) {
+    try {
+      let storageFileRef = storageRef(storage, `cat/${route.params.id.toString()}/${uid(16)}.jpg`)
+      const {
+        url,
+        // gives you a percentage between 0 and 1 of the upload progress
+        uploadProgress,
+        uploadError,
+        // firebase upload task
+        uploadTask,
+        upload,
+      } = useStorageFile(storageFileRef)
       upload(obj, metadata);
-    }
+    } catch (e) {}
   }
 
   let res = updateDoc(catRef, cat);
@@ -95,7 +112,16 @@ const submit = () => {
       color: 'primary'
     })
 
-    FILES = [];
+    empty = document.getElementById("empty");
+    while (gallery.children.length > 0) {
+      gallery.lastChild.remove();
+    }
+    FILES = {};
+    empty.classList.remove("hidden");
+    gallery.append(empty);
+
+    refreshImage();
+
   }).catch((error) => {
     toast.add({
       title: 'Chat non sauvegardé',
@@ -151,8 +177,8 @@ onMounted(() => {
     FILES[objectURL] = file;
   }
 
-  const gallery = document.getElementById("gallery"),
-      overlay = document.getElementById("overlay");
+  gallery = document.getElementById("gallery");
+  const overlay = document.getElementById("overlay");
 
   // click the hidden input of type file if the visible button is clicked
   // and capture the selected files
@@ -370,9 +396,8 @@ onMounted(() => {
         </div>
         <div>
           <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <div v-for="img in images">
-              <img class="h-auto max-w-full rounded-lg"
-                   src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg" alt="">
+            <div v-for="(img, test) in images" :key="test">
+              <NuxtImg class="h-auto max-w-full rounded-lg" :src=img alt=""/>
             </div>
           </div>
         </div>
