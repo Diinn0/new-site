@@ -45,5 +45,11 @@ export default defineNuxtConfig({
     classPrefix: '',
     classSuffix: '',
     storageKey: 'nuxt-color-mode'
+  },
+  nitro: {
+    firebase: {
+      gen: 2
+      // ...
+    }
   }
 })
