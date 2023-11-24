@@ -19,9 +19,9 @@ const googleAuthProvider = new GoogleAuthProvider()
   const error = ref(null)
   function signinRedirect() {
     signInWithRedirect(auth, googleAuthProvider).then(() => {
-           navigateTo({
-            path: '/',
-          })
+          //  navigateTo({
+          //   path: '/',
+          // })
       }).catch((reason) => {
       console.error('Failed signinRedirect', reason)
       error.value = reason
@@ -31,9 +31,9 @@ const googleAuthProvider = new GoogleAuthProvider()
   // only on client side
   onMounted(() => {
     getRedirectResult(auth).then(() => {
-      navigateTo({
-        path: '/',
-      })
+      // navigateTo({
+      //   path: '/',
+      // })
     }).catch((reason) => {
       console.error('Failed redirect result', reason)
       error.value = reason
