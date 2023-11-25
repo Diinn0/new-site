@@ -5,7 +5,7 @@ import {useDocument} from 'vuefire'
 import {initFlowbite} from "flowbite";
 import moment from "moment";
 import {updateDoc} from "@firebase/firestore";
-import {ref as storageRef, listAll, getDownloadURL } from 'firebase/storage'
+import {ref as storageRef, listAll, getDownloadURL, deleteObject } from 'firebase/storage'
 import {useFirebaseStorage, useStorageFile} from 'vuefire'
 import {uid} from "uid";
 
@@ -38,21 +38,22 @@ const metadata = {
 
 let images = ref([]);
 
-
 let refreshImage = () => {
+  images = ref([]);
   listAll( storageRef(storage, `cat/${route.params.id.toString()}`))
       .then((res) => {
         res.items.forEach((itemRef) => {
           getDownloadURL(itemRef)
               .then((url) => {
-                images.value.push(url);
+                let obj = {
+                  url: url,
+                  ref: itemRef
+                }
+                images.value.push(obj);
               })
-              .catch((error) => {
-                // Handle any errors
-              });
+              .catch((error) => {});
         });
-      }).catch((error) => {
-  });
+      }).catch((error) => {});
 }
 
 refreshImage();
@@ -253,6 +254,21 @@ onMounted(() => {
 
 })
 
+let removeImageFromFirestore = (ref) => {
+
+   deleteObject(ref).then(() => {
+     toast.add({
+       title: 'Image supprimé',
+       description: `L'image a été supprimé`,
+       timeout: 6000,
+       color: 'primary'
+     })
+      refreshImage()
+   }).catch((error) => {
+   });
+}
+
+
 </script>
 
 <template>
@@ -399,9 +415,9 @@ onMounted(() => {
             <div v-for="(img, test) in images" :key="test">
               <div class="relative">
                 <div class="group hasImage w-full h-full rounded-md relative hover:grayscale transition-all duration-300">
-                  <NuxtImg class="h-auto max-w-full rounded-lg sticky object-cover rounded-md bg-fixed" :src=img alt=""/>
+                  <NuxtImg class="h-auto max-w-full rounded-lg sticky object-cover rounded-md bg-fixed" :src=img.url alt=""/>
                   <div class=" flex flex-col rounded-md text-xs break-words w-full h-full z-20 absolute top-0 py-2 px-3">
-                      <a class="cursor-pointer text-transparent group-hover:text-white ml-auto focus:outline-none hover:bg-gray-300 p-1 rounded-md">
+                      <a @click='removeImageFromFirestore(img.ref)' class="cursor-pointer text-transparent group-hover:text-white ml-auto focus:outline-none hover:bg-gray-300 p-1 rounded-md">
                         <svg class="pointer-events-none fill-current w-4 h-4 ml-auto" xmlns="http://www.w3.org/2000/svg"
                              width="24" height="24" viewBox="0 0 24 24">
                           <path class="pointer-events-none"
