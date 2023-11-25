@@ -117,10 +117,11 @@
 </template>
 
 <script setup>
-import {useFirestore} from "vuefire";
+import {useFirebaseStorage, useFirestore} from "vuefire";
 import {collection, doc} from "firebase/firestore";
 import {initFlowbite} from "flowbite";
 import {deleteDoc} from "@firebase/firestore";
+import {deleteObject, getDownloadURL, listAll, ref as storageRef} from "firebase/storage";
 
 onMounted( () => {
   initFlowbite();
@@ -154,6 +155,16 @@ let cancelDel = () => {
 let processDel = () => {
   isConfirmDelOpen = ref(false);
   let chatColl = collection(db, 'chat');
+  const storage = useFirebaseStorage()
+
+  listAll( storageRef(storage, `cat/${delCatId}/`))
+      .then((res) => {
+        res.items.forEach((itemRef) => {
+          deleteObject(itemRef).then(() => {
+          }).catch((error) => {});
+        });
+      }).catch((error) => {});
+
   deleteDoc(doc(db, 'chat', delCatId))
       .then((result) => {
         toast.add( {
