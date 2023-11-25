@@ -1,14 +1,24 @@
 <script setup lang="ts">
 import {useFirestore} from "vuefire";
 import {doc, getDoc} from "firebase/firestore";
+import {signOut} from "firebase/auth"
 
 const user = useCurrentUser()
 
 let userAuth = null;
+const auth = useFirebaseAuth()
 
 if (user.value != null) {
   const db = useFirestore();
   userAuth = (await getDoc(doc(db, 'users', user.value.uid))).data();
+}
+
+let logout = () => {
+  signOut(auth).then(() => {
+    location.reload();
+  }).catch((error) => {
+    // An error happened.
+  });
 }
 
 </script>
@@ -30,6 +40,7 @@ if (user.value != null) {
           <div v-else>
             <a href="#" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Log in</a>
             <NuxtLink prefetch v-if="userAuth.admin == true" href="/admin" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Panel admin</NuxtLink>
+            <a class="cursor-pointer text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800" @click="logout()">Se deconnecter</a>
           </div>
 
             <button data-collapse-toggle="mobile-menu-2" type="button" class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
