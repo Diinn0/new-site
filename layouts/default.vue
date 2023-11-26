@@ -71,9 +71,9 @@ let logout = () => {
       </div>
     </nav>
   </header>
-
-  <NuxtPage/>
-
+  <div class="container mx-auto px-4 mb-6 mt-3">
+    <NuxtPage/>
+  </div>
   <footer class="p-4 bg-white sm:p-6 dark:bg-gray-800">
     <div class="mx-auto max-w-screen-xl">
       <div class="md:flex md:justify-between">
