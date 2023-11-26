@@ -38,9 +38,9 @@ const metadata = {
 
 let images = ref([]);
 
-let refreshImage = () => {
-  images = ref([]);
-  listAll( storageRef(storage, `cat/${route.params.id.toString()}`))
+let refreshImage = async () => {
+  images.value = [];
+  listAll(storageRef(storage, `cat/${route.params.id.toString()}`))
       .then((res) => {
         res.items.forEach((itemRef) => {
           getDownloadURL(itemRef)
@@ -51,9 +51,11 @@ let refreshImage = () => {
                 }
                 images.value.push(obj);
               })
-              .catch((error) => {});
+              .catch((error) => {
+              });
         });
-      }).catch((error) => {});
+      }).catch((error) => {
+  });
 }
 
 refreshImage();
