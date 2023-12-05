@@ -1,10 +1,12 @@
 <script setup>
-import { useFirestore } from 'vuefire'
+import {useFirebaseStorage, useFirestore} from 'vuefire'
 import {doc, getDoc} from "firebase/firestore";
-import { useDocument } from 'vuefire'
+import {getDownloadURL, listAll, ref as storageRef} from "firebase/storage";
+import FsLightbox from "fslightbox-vue/v3";
 
 const route = useRoute();
 const db = useFirestore();
+const storage = useFirebaseStorage()
 
 const cat = (await getDoc(doc(db, 'chat', route.params.id.toString()))).data();
 
@@ -28,16 +30,53 @@ const tests = cat.tests;
 
 let currentId = undefined;
 
+let images = ref([]);
+
+images.value = [];
+listAll(storageRef(storage, `cat/${route.params.id.toString()}`))
+    .then((res) => {
+      res.items.forEach((itemRef) => {
+        getDownloadURL(itemRef)
+            .then((url) => {
+              images.value.push(url);
+            })
+            .catch((error) => {
+              console.log(error)
+            });
+      });
+    }).catch((error) => {
+  console.log(error)
+
+});
+
+let slide = ref(0)
+let toggler = ref(false)
+
+let openOnSlide = (i) => {
+  slide.value = i + 1;
+  toggler.value = !toggler.value
+}
+
 </script>
 
 <template>
+
   <section>
     <InPageNav :links="links" />
-    <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
+    <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6 align-top">
       <div>
-
+        <div class="grid grid-cols-2 md:grid-cols-2 gap-2">
+          <div v-for="(image, i) in images">
+            <NuxtImg class="cursor-pointer h-auto max-w-full rounded-lg " :src="image" @click="openOnSlide(i)"></NuxtImg>
+          </div>
+        </div>
+        <FsLightbox
+            :toggler="toggler"
+            :sources="images"
+            :slide="slide"
+        />
       </div>
-      <div class="mt-4 md:mt-0">
+      <div class="mt-4 md:mt-0 h-screen">
         <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">{{ cat.name }}</h2>
 
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-5">
