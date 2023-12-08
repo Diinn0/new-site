@@ -1,5 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      apiKey: process.env.APIKEY,
+    }
+  },
   ui: {
     notifications: {
       // Show toasts at the top right of the screen
