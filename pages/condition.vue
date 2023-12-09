@@ -7,8 +7,8 @@ const links = [
 <template>
   <InPageNav :links="links"/>
   <div class="mx-5">
-    <h2 class="text-4xl font-extrabold dark:text-white mb-2 mt-3">CONDITIONS GENERALES DE RESERVATION ET DE VENTE </h2>
-    <h3 class="text-lg font-extrabold dark:text-white mb-2">PREAMBULE</h3>
+    <h2 class="text-4xl font-extrabold mb-2 mt-3">CONDITIONS GENERALES DE RESERVATION ET DE VENTE </h2>
+    <h3 class="text-lg font-extrabold mb-2">PREAMBULE</h3>
     <p class="mb-3">
       Nous sommes un petit élevage familial à NAMPTEUIL SOUS MURET (02), la Chatterie de la
       Maison Fleurie, représentée par Madame Karine Roy, Entrepreneur Individuel, immatriculé au

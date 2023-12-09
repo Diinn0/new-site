@@ -45,9 +45,8 @@ listAll(storageRef(storage, `cat/${route.params.id.toString()}`))
             });
       });
     }).catch((error) => {
-  console.log(error)
-
 });
+images.value.sort();
 
 let slide = ref(0)
 let toggler = ref(false)
@@ -64,10 +63,10 @@ let openOnSlide = (i) => {
   <section>
     <InPageNav :links="links" />
     <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6 align-top">
-      <div>
-        <div class="grid grid-cols-2 md:grid-cols-2 gap-2">
+      <div class="h-screen">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
           <div v-for="(image, i) in images">
-            <NuxtImg class="cursor-pointer h-auto max-w-full rounded-lg " :src="image" @click="openOnSlide(i)"></NuxtImg>
+            <NuxtImg class="cursor-pointer hover:brightness-125 transition-all duration-300 rounded-lg object-cover h-32 w-96" :src="image" @click="openOnSlide(i)"></NuxtImg>
           </div>
         </div>
         <FsLightbox
@@ -77,22 +76,24 @@ let openOnSlide = (i) => {
         />
       </div>
       <div class="mt-4 md:mt-0 h-screen">
-        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">{{ cat.name }}</h2>
-
+        <div class="max-w-[500px]">
+          <h2 class="mb-4 text-4xl tracking-tight font-extrabold">{{ cat.name }}</h2>
+          <NuxtImg class="h-14 w-14 mx-auto" src="/img/5a01f50518e87004f1ca4340.png"/>
+        </div>
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-5">
           <div>
-            <p class="font-light text-gray-500 md:text-lg dark:text-gray-400">{{ cat.sexe == 0 ? 'Femelle' : 'Male' }}</p>
-            <p class="font-light text-gray-500 md:text-lg dark:text-gray-400"><strong class="font-bold">{{ cat.sexe == 0 ? 'Née' : 'Né' }} le: </strong>{{ cat.dateOfBirth.toDate().toLocaleDateString("fr") }}</p>
+            <p class="font-light md:text-lg">{{ cat.sexe == 0 ? 'Femelle' : 'Male' }}</p>
+            <p class="font-light md:text-lg"><strong class="font-bold">{{ cat.sexe == 0 ? 'Née' : 'Né' }} le: </strong>{{ cat.dateOfBirth.toDate().toLocaleDateString("fr") }}</p>
           </div>
           <div>
-            <strong class="font-bold">Tests santé:</strong>
+            <strong class="font-bold" v-if="tests">Tests santé:</strong>
             <ul class="mt-2 space-y-1 list-none list-inside">
               <li v-for="test in tests">{{ test }}</li>
             </ul>
           </div>
         </div>
 
-        <strong class="fond-bold">Description:</strong>
+        <strong v-if="cat.description" class="fond-bold">Description:</strong>
         <p>{{ cat.description }}</p>
 
 
