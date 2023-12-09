@@ -49,13 +49,29 @@ let refreshImage = async () => {
                   url: url,
                   ref: itemRef
                 }
-                images.value.push(obj);
+
+                if (url !== cat.favorite) {
+                  images.value.push(obj);
+                } else {
+                  images.value.unshift(obj);
+                }
               })
               .catch((error) => {
               });
         });
       }).catch((error) => {
   });
+
+  images.value.sort((a, b) => {
+          if (a.url < b.url) {
+            return -1;
+          }
+          if (a.url > b.url) {
+            return 1;
+          }
+          return 0;
+  });
+
 }
 
 refreshImage();
@@ -86,7 +102,6 @@ let removeTest = (index) => {
 
 const submit = () => {
   cat.dateOfBirth = Timestamp.fromDate(new Date(date))
-  console.log(cat.dateOfBirth)
   cat.tests = tests.value;
 
   for (const [name, obj] of Object.entries(FILES)) {
@@ -270,6 +285,11 @@ let removeImageFromFirestore = (ref) => {
    });
 }
 
+let changeFavorite = (name) => {
+  cat.favorite = name;
+  submit();
+}
+
 
 </script>
 
@@ -417,8 +437,18 @@ let removeImageFromFirestore = (ref) => {
             <div v-for="(img, test) in images" :key="test">
               <div class="relative">
                 <div class="group hasImage w-full h-full rounded-md relative hover:grayscale transition-all duration-300">
-                  <NuxtImg class="h-auto max-w-full rounded-lg sticky object-cover rounded-md bg-fixed" :src=img.url alt=""/>
+                  <NuxtImg class="h-auto max-w-full rounded-lg sticky object-cover bg-fixed" :src=img.url alt=""/>
                   <div class=" flex flex-col rounded-md text-xs break-words w-full h-full z-20 absolute top-0 py-2 px-3">
+                    <div v-if="img.url === cat.favorite" class="text-yellow-400 ml-auto focus:outline-none p-1 rounded-md">
+                      <svg class="pointer-events-none fill-current w-4 h-4 ml-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256">
+                        <path fill="currentColor" d="m234.5 114.38l-45.1 39.36l13.51 58.6a16 16 0 0 1-23.84 17.34l-51.11-31l-51 31a16 16 0 0 1-23.84-17.34l13.49-58.54l-45.11-39.42a16 16 0 0 1 9.11-28.06l59.46-5.15l23.21-55.36a15.95 15.95 0 0 1 29.44 0L166 81.17l59.44 5.15a16 16 0 0 1 9.11 28.06Z"/>
+                      </svg>
+                    </div>
+                    <a v-else @click='changeFavorite(img.url)' class="cursor-pointer text-transparent group-hover:text-white ml-auto focus:outline-none hover:bg-gray-300 p-1 rounded-md">
+                      <svg class="pointer-events-none fill-current w-4 h-4 ml-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256">
+                        <path fill="currentColor" d="M239.2 97.29a16 16 0 0 0-13.81-11L166 81.17l-23.28-55.36a15.95 15.95 0 0 0-29.44 0L90.07 81.17l-59.46 5.15a16 16 0 0 0-9.11 28.06l45.11 39.42l-13.52 58.54a16 16 0 0 0 23.84 17.34l51-31l51.11 31a16 16 0 0 0 23.84-17.34l-13.51-58.6l45.1-39.36a16 16 0 0 0 4.73-17.09Zm-15.22 5l-45.1 39.36a16 16 0 0 0-5.08 15.71L187.35 216l-51.07-31a15.9 15.9 0 0 0-16.54 0l-51 31l13.46-58.6a16 16 0 0 0-5.08-15.71L32 102.35a.37.37 0 0 1 0-.09l59.44-5.14a16 16 0 0 0 13.35-9.75L128 32.08l23.2 55.29a16 16 0 0 0 13.35 9.75l59.45 5.14v.07Z"/>
+                      </svg>
+                    </a>
                       <a @click='removeImageFromFirestore(img.ref)' class="cursor-pointer text-transparent group-hover:text-white ml-auto focus:outline-none hover:bg-gray-300 p-1 rounded-md">
                         <svg class="pointer-events-none fill-current w-4 h-4 ml-auto" xmlns="http://www.w3.org/2000/svg"
                              width="24" height="24" viewBox="0 0 24 24">

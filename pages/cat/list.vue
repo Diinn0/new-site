@@ -21,9 +21,9 @@ const links = [
   <h2 class="text-4xl font-extrabold dark:text-white mb-2">Nos chats</h2>
   <div class="grid gap-8 lg:grid-cols-4">
     <div v-for="cat in cats" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      <a href="#">
-        <img class="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" />
-      </a>
+      <NuxtLink :href="'/cat/' + cat.id">
+        <img class="rounded-t-lg" :src="cat.favorite" alt="" />
+      </NuxtLink>
       <div class="p-5">
         <a href="#">
           <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ cat.name }}</h5>
