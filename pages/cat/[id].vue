@@ -77,24 +77,24 @@ let openOnSlide = (i) => {
       </div>
       <div class="mt-4 md:mt-0 h-screen">
         <div class="max-w-[500px]">
-          <h2 class="mb-4 text-4xl tracking-tight font-extrabold">{{ cat.name }}</h2>
-          <NuxtImg class="h-14 w-14 mx-auto" src="/img/5a01f50518e87004f1ca4340.png"/>
+          <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-yellow-900">{{ cat.name }}</h2>
+<!--          <NuxtImg class="h-14 w-14 mx-auto" src="/img/5a01f50518e87004f1ca4340.png"/>-->
         </div>
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-5">
           <div>
-            <p class="font-light md:text-lg">{{ cat.sexe == 0 ? 'Femelle' : 'Male' }}</p>
-            <p class="font-light md:text-lg"><strong class="font-bold">{{ cat.sexe == 0 ? 'Née' : 'Né' }} le: </strong>{{ cat.dateOfBirth.toDate().toLocaleDateString("fr") }}</p>
+            <p class="font-light md:text-lg text-yellow-900">{{ cat.sexe == 0 ? 'Femelle' : 'Male' }}</p>
+            <p class="font-light md:text-lg text-yellow-900"><strong class="font-bold">{{ cat.sexe == 0 ? 'Née' : 'Né' }} le: </strong>{{ cat.dateOfBirth.toDate().toLocaleDateString("fr") }}</p>
           </div>
           <div>
-            <strong class="font-bold" v-if="tests">Tests santé:</strong>
-            <ul class="mt-2 space-y-1 list-none list-inside">
+            <strong class="font-bold  text-yellow-900" v-if="tests">Tests santé:</strong>
+            <ul class="mt-2 space-y-1 list-none list-inside  text-yellow-900">
               <li v-for="test in tests">{{ test }}</li>
             </ul>
           </div>
         </div>
 
-        <strong v-if="cat.description" class="fond-bold">Description:</strong>
-        <p>{{ cat.description }}</p>
+        <strong v-if="cat.description" class="fond-bold  text-yellow-900">Description:</strong>
+        <p class="text-yellow-900">{{ cat.description }}</p>
 
 
       </div>

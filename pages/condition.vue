@@ -6,7 +6,7 @@ const links = [
 
 <template>
   <InPageNav :links="links"/>
-  <div class="mx-5">
+  <div class="mx-5 text-yellow-900">
     <h2 class="text-4xl font-extrabold mb-2 mt-3">CONDITIONS GENERALES DE RESERVATION ET DE VENTE </h2>
     <h3 class="text-lg font-extrabold mb-2">PREAMBULE</h3>
     <p class="mb-3">
@@ -35,7 +35,7 @@ const links = [
       moment sans préavis: les conditions applicables seront celles en vigueur à la date de la
       réservation d’un chaton par l’adoptant.
     </p>
-    <h3 class="text-lg font-extrabold dark:text-white mb-2">1. RESPECT ET BIEN ETRE DE L’ANIMAL
+    <h3 class="text-lg font-extrabold mb-2">1. RESPECT ET BIEN ETRE DE L’ANIMAL
     </h3>
     <p class="mb-3">
       Conformément à l’article L214-1 du Code rural, tout animal étant un être sensible doit être
@@ -55,7 +55,7 @@ const links = [
     <p class="mb-3">
       En considération de ce qui précède, le Vendeur se réserve de sélectionner les adoptants.
     </p>
-    <h3 class="text-lg font-extrabold dark:text-white mb-2">2. DISPONIBILITE D’UN CHATON</h3>
+    <h3 class="text-lg font-extrabold mb-2">2. DISPONIBILITE D’UN CHATON</h3>
     <p class="mb-3">
       Les chatons sont disponibles dès que ceux-ci sont sevrés, c’est-à-dire vers l’âge de 15 à 17
       semaines.
@@ -68,7 +68,7 @@ const links = [
       A l’issue de ce rendez-vous, l’adoptant pourra, s’il le souhaite, poser une option, pendant une
       durée maximale de 15 jours ou bien le réserver.
     </p>
-    <h3 class="text-lg font-extrabold dark:text-white mb-2">3. CONDITIONS DE RESERVATION</h3>
+    <h3 class="text-lg font-extrabold mb-2">3. CONDITIONS DE RESERVATION</h3>
     <p class="mb-3">
       Un contrat de réservation est conclu entre le Vendeur et l’adoptant après une visite à la
       chatterie. Aucune réservation d’un chaton n’est possible sans une visite préalable à la
@@ -78,7 +78,7 @@ const links = [
       Un acompte déterminé par le Vendeur est versé par l’adoptant au moment de la réservation
       d’un chaton.
     </p>
-    <h3 class="text-lg font-extrabold dark:text-white mb-2">4. DELAIS</h3>
+    <h3 class="text-lg font-extrabold mb-2">4. DELAIS</h3>
     <p class="mb-3">
       L’adoptant s’engage à acquérir le chaton réservé dans le délai qui sera convenu avec le
       Vendeur.
@@ -90,7 +90,7 @@ const links = [
     <p class="mb-3">
       L’acompte versé restera acquis au Vendeur.
     </p>
-    <h3 class="text-lg font-extrabold dark:text-white mb-2">5. RETRAIT DU CHATON</h3>
+    <h3 class="text-lg font-extrabold mb-2">5. RETRAIT DU CHATON</h3>
     <p class="mb-3">
       Le chaton doit être retiré à la chatterie par l’adoptant le jour convenu avec le Vendeur.
     </p>
@@ -108,15 +108,15 @@ const links = [
       <li>Le contrat de vente</li>
       <li>Un kit chaton.</li>
     </ul>
-    <h3 class="text-lg font-extrabold dark:text-white mb-2">6. PRIX</h3>
+    <h3 class="text-lg font-extrabold mb-2">6. PRIX</h3>
     <p class="mb-3">Le prix d’un chaton destiné à la compagnie est de 1400 euros.</p>
-    <h3 class="text-lg font-extrabold dark:text-white mb-2">7. MODALITES DE PAIEMENT DU PRIX</h3>
+    <h3 class="text-lg font-extrabold mb-2">7. MODALITES DE PAIEMENT DU PRIX</h3>
     <p class="mb-3">L’intégralité du prix doit être payé avant le retrait du chaton au Vendeur par virement
       bancaire.</p>
     <p class="mb-3">A défaut de règlement de l’intégralité du prix, l’adoptant sera considéré comme ayant renoncé
       à l’achat du chaton.</p>
     <p class="mb-3">Le chaton reste la propriété du Vendeur jusqu’au paiement intégral du prix.</p>
-    <h3 class="text-lg font-extrabold dark:text-white mb-2">8. ENGAGEMENTS DU VENDEUR</h3>
+    <h3 class="text-lg font-extrabold mb-2">8. ENGAGEMENTS DU VENDEUR</h3>
     <p class="mb-3">Avant son adoption, le Vendeur s’engage à :</p>
     <ul class="space-y-1 list-disc list-inside mb-2">
       <li>Faire vacciner le chaton contre le Typhus, le Coryza et la Leucose,</li>
@@ -124,7 +124,7 @@ const links = [
       <li>Vermifuger le chaton,</li>
       <li>Faire identifier le chaton par puce électronique.</li>
     </ul>
-    <h3 class="text-lg font-extrabold dark:text-white mb-2">9. ENGAGEMENTS DE L’ADOPTANT</h3>
+    <h3 class="text-lg font-extrabold mb-2">9. ENGAGEMENTS DE L’ADOPTANT</h3>
     <p class="mb-3">L’adoptant s’engage à prendre rendez-vous auprès d’un vétérinaire de son choix pour assurer
       une première visite au chaton nouvellement adopté.</p>
     <p class="mb-3">L’adoptant s’engage à poursuivre les rappels de vaccination du chaton ainsi que le traitement
@@ -135,10 +135,10 @@ const links = [
       informer au préalable le Vendeur.</p>
     <p class="mb-3">L’adoptant s’engage à donner au Vendeur des nouvelles du chaton adopté et de lui envoyer
       des photos régulièrement.</p>
-    <h3 class="text-lg font-extrabold dark:text-white mb-2">10. FORCE MAJEURE</h3>
+    <h3 class="text-lg font-extrabold mb-2">10. FORCE MAJEURE</h3>
     <p class="mb-3">L’exécution des obligations du Vendeur peut être suspendue en cas de survenance d’un cas
       de force majeure. Le Vendeur en avisera l’adoptant dès que possible et par tout moyen.</p>
-    <h3 class="text-lg font-extrabold dark:text-white mb-2">11. LITIGES</h3>
+    <h3 class="text-lg font-extrabold mb-2">11. LITIGES</h3>
     <p class="mb-3">Les contestations et différends, de quelque nature qu’ils soient, qui pourraient naître à
       l’occasion de l’adoption d’un chaton seront, préalablement à toute action juridictionnelle au
       fond ou en référé soumis à la médiation. A défaut d’accord trouvé en médiation, les Parties

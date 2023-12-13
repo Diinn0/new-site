@@ -25,12 +25,12 @@ function initMap() {
 
   const contentString =
       `
-       <h3 class="font-semibold text-xl text-gray-900">Chatterie de la maison fleurie</h3>
+       <h3 class="font-semibold text-xl text-yellow-900">Chatterie de la maison fleurie</h3>
        <hr class="m-2 bg-gray-800 h-0.5">
-       <h4 class="font-semibold text-gray-900">Karine ROY</h4>
-       <p class="text-gray-900 mb-1">1 rue saint jacques, 02200 Nampteuil sous muret</p>
-       <p class="text-gray-900"><span class="font-bold">Tél. fixe: </span>03.23.55.29.85</p>
-       <p class="text-gray-900"><span class="font-bold">Tél. mobile: </span>06.77.50.82.97</p>
+       <h4 class="font-semibold text-yellow-900">Karine ROY</h4>
+       <p class="text-yellow-900 mb-1">1 rue saint jacques, 02200 Nampteuil sous muret</p>
+       <p class="text-yellow-900"><span class="font-bold">Tél. fixe: </span>03.23.55.29.85</p>
+       <p class="text-yellow-900"><span class="font-bold">Tél. mobile: </span>06.77.50.82.97</p>
       `;
 
   const infowindow = new google.maps.InfoWindow({
@@ -67,9 +67,9 @@ onMounted(() => {
   <InPageNav :links="links" />
   <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6 align-top">
     <div id="map" class="grow h-[calc(55vh)] m-2"></div>
-    <div>
-      <h2 class="text-4xl font-extrabold dark:text-white">Nous contacter</h2>
-      <p class="mb-4 text-lg font-bold text-red-700 dark:text-gray-400mb-10">Visites uniquement sur Rendez-vous</p>
+    <div class="text-yellow-900">
+      <h2 class="text-4xl font-extrabold text-yellow-900">Nous contacter</h2>
+      <p class="mb-4 text-lg font-bold text-red-700">Visites uniquement sur Rendez-vous</p>
 
       <p>E-mail: <a class="font-medium text-blue-600 underline dark:text-blue-500 dark:hover:text-blue-600 hover:text-blue-700 hover:no-underline mb-4" href="mailto:contact@maison-fleurie.fr">contact@maison-fleurie.fr</a></p>
 

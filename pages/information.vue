@@ -7,11 +7,11 @@ const links = [
 <template>
   <InPageNav :links="links" />
 
-  <div class="items-center mx-auto max-w-screen-xl md:grid md:grid-cols-2 lg:px-6 align-top pt-4">
+  <div class="items-center mx-auto max-w-screen-xl md:grid md:grid-cols-2 lg:px-6 align-top pt-4 text-yellow-900">
     <div>
-      <h2 class="mb-4 text-2xl font-extrabold leading-none tracking-tight md:text-4xl dark:text-white">Vente chatons</h2>
-      <h2 class="mb-2 mt-4 text-lg font-semibold dark:text-white">Nos chatons quittent l’élevage :</h2>
-      <ul class="max-w-md space-y-1 list-disc list-inside dark:text-white">
+      <h2 class="mb-4 text-2xl font-extrabold leading-none tracking-tight md:text-4xl">Vente chatons</h2>
+      <h2 class="mb-2 mt-4 text-lg font-semibold">Nos chatons quittent l’élevage :</h2>
+      <ul class="max-w-md space-y-1 list-disc list-inside">
         <li>A partir de 3 mois au minimum</li>
         <li>Avec un carnet de santé</li>
         <li>Vaccinés</li>
@@ -25,12 +25,12 @@ const links = [
       </ul>
     </div>
     <div >
-      <h2 class="mb-4 text-2xl font-extrabold leading-none tracking-tight md:text-4xl dark:text-white">Quelques précautions</h2>
-      <p class="my-4 dark:text-white">Vous êtes décidés, vous allez acquérir le chaton de vos rêves.<br>
+      <h2 class="mb-4 text-2xl font-extrabold leading-none tracking-tight md:text-4xl">Quelques précautions</h2>
+      <p class="my-4">Vous êtes décidés, vous allez acquérir le chaton de vos rêves.<br>
         Il est utile de bien vous renseigner et de prendre quelques précautions.<br>
         Internet est un outil efficace, mais attention car on y trouve le meilleur comme le pire:</p>
 
-      <ul class="space-y-1 list-disc list-inside dark:text-white">
+      <ul class="space-y-1 list-disc list-inside">
         <li>Attention aux prix bas, l’élevage de chats de race est une activité qui coûte cher quand elle est pratiquée correctement.</li>
         <li>Assurez-vous que le chaton a bien un pedigree LOOF.</li>
         <li>N’hésitez pas à poser des questions par mail ou par téléphone.</li>
