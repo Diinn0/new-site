@@ -12,7 +12,7 @@ export default defineNuxtConfig({
     }
   },
   devtools: { enabled: true },
-  modules: ['nuxt-vuefire', "@nuxt/image", '@nuxt/ui', '@formkit/auto-animate/nuxt', 'nuxt-icon'],
+  modules: ['nuxt-vuefire', "@nuxt/image", '@nuxt/ui', 'nuxt-icon'],
   postcss: {
     plugins: {
       tailwindcss: {},
