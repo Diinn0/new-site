@@ -10,7 +10,7 @@ const storage = useFirebaseStorage()
 
 const cat = (await getDoc(doc(db, 'chat', route.params.id.toString()))).data();
 
-if (cat == undefined)
+if (cat == undefined || !cat.active)
 {
   throw createError({
     statusCode: 404,
