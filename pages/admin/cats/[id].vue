@@ -8,6 +8,7 @@ import {updateDoc} from "@firebase/firestore";
 import {ref as storageRef, listAll, getDownloadURL, deleteObject } from 'firebase/storage'
 import {useFirebaseStorage, useStorageFile} from 'vuefire'
 import {uid} from "uid";
+import Compressor from 'compressorjs';
 
 onMounted(() => {
   initFlowbite();
@@ -116,8 +117,23 @@ const submit = () => {
         uploadTask,
         upload,
       } = useStorageFile(storageFileRef)
-      upload(obj, metadata);
-    } catch (e) {}
+
+      new Compressor(obj, {
+        quality: 0.6,
+
+        // The compression process is asynchronous,
+        // which means you have to access the `result` in the `success` hook function.
+        success(result) {
+          upload(result, metadata);
+        },
+
+        error(err) {
+          console.log(err.message);
+        },
+      });
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   let res = updateDoc(catRef, cat);
