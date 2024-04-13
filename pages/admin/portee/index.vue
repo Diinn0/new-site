@@ -56,14 +56,14 @@
                 <td class="px-4 py-3 font-medium whitespace-nowrap text-blue-600">{{ portee.female }}</td>
                 <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{ portee.datePrev.toDate().toLocaleDateString("fr") }}</td>
                 <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{ portee.dateReel.toDate().toLocaleDateString("fr") }}</td>
-                <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{ portee.child.length }}</td>
+                <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{ portee.childs.length }}</td>
                 <td class="px-4 py-3 flex items-center justify-end">
 
-<!--                  <NuxtLink :href="'/admin/cats/' + cat.id" class="text-white bg-orange-400 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-orange-400 dark:hover:bg-orange-600 dark:focus:ring-orange-600">-->
-<!--                    <Icon name="mdi:pencil"></Icon>-->
-<!--                    <span class="sr-only">Editer</span>-->
-<!--                  </NuxtLink>-->
-<!--                  <a @click="preProcessDel(cat.id, cat.name)" href="#" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">-->
+                  <NuxtLink :href="'/admin/portee/' + portee.id" class="text-white bg-orange-400 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-orange-400 dark:hover:bg-orange-600 dark:focus:ring-orange-600">
+                    <Icon name="mdi:pencil"></Icon>
+                    <span class="sr-only">Editer</span>
+                  </NuxtLink>
+<!--                  <a @click="preProcessDel(portee.id, portee.name)" href="#" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">-->
 <!--                    <Icon name="mdi:delete"></Icon>-->
 <!--                    <span class="sr-only">Supprimer</span>-->
 <!--                  </a>-->

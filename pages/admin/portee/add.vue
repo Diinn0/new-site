@@ -33,7 +33,7 @@ let form =  {
       male: '',
       female: '',
       pawpedsLink:'',
-      child: []
+      childs: []
 }
 
 let dateUnformatedPrev = ''
