@@ -5,20 +5,24 @@ export default defineNuxtConfig({
       apiKey: process.env.APIKEY,
     }
   },
+
   ui: {
     notifications: {
       // Show toasts at the top right of the screen
       position: 'top-0 bottom-auto'
     }
   },
+
   devtools: { enabled: true },
   modules: ['nuxt-vuefire', "@nuxt/image", '@nuxt/ui', 'nuxt-icon'],
+
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
   },
+
   vuefire: {
     config: {
       apiKey: process.env.APIKEY,
@@ -41,6 +45,7 @@ export default defineNuxtConfig({
       sessionCookie: true
     },
   },
+
   colorMode: {
     preference: 'light', // default value of $colorMode.preference
     fallback: 'light', // fallback value if not system preference found
@@ -51,6 +56,7 @@ export default defineNuxtConfig({
     classSuffix: '',
     storageKey: 'nuxt-color-mode'
   },
+
   nitro: {
     firebase: {
       gen: 2,
@@ -59,5 +65,7 @@ export default defineNuxtConfig({
         maxInstances: 3,
       },
     }
-  }
+  },
+
+  compatibilityDate: '2024-07-30'
 })
