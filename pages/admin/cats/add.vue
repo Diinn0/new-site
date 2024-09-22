@@ -58,8 +58,10 @@ let dateUnformated = ''
         <input v-model="form.surname" type="text" name="surname" id="surname" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Entrez le surnom" required="">
       </div>
       <div>
+        <client-only>
         <label for="dateofbirth" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date de naissance</label>
         <input v-model="dateUnformated" type="date" name="dateofbirth" id="dateofbirth" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Entrez la date de naissance" required="">
+          </client-only>
       </div>
       <div>
         <label for="pawpeds" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lien Pawpeds</label>
