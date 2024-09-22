@@ -755,6 +755,16 @@ const isDark = computed({
               <span class="flex-1 ml-3 text-left whitespace-nowrap">Portée</span>
             </NuxtLink>
           </li>
+          <li>
+            <NuxtLink href="/admin/kittens"
+                      type="button"
+                      class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+              <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                  xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
+                <path fill="currentColor" d="M458.5 26.53c-8.8.12-18.1 2.88-25.1 6.84c-12.5 7.02-23 28.72-29 43.11a64 48 45 0 0-54.3-3.36L438.9 162a64 48 45 0 0-3.4-54.4c14.4-5.9 36.1-16.52 43.1-28.97c7.5-13.11 10.7-34.58 0-45.26c-5-5-12.3-6.95-20.1-6.84M331.6 80.05L299 112.6L399.4 213l32.6-32.5zm-61 42.55c-13.5-.3-32.9 6-57.1 30.3L32.42 334c-3.54 3.5-5.85 9.7-5.85 16.2s2.31 12.7 5.85 16.2L145.6 479.6c3.5 3.6 9.7 5.9 16.3 5.9c6.5 0 12.7-2.3 16.2-5.9l4.9-5l-27.5-27.5l12.8-12.8l27.5 27.5l21.1-21.1l-27.5-27.5l12.8-12.8l27.5 27.5l21.2-21.1l-50.2-50.2l12.8-12.8l50.2 50.2l21.1-21.2l-27.5-27.5l12.8-12.8l27.5 27.5l21.2-21.1l-27.6-27.6l12.8-12.8l27.6 27.6l21.1-21.2l-50.2-50.1l12.8-12.8l50 49.9c35.6-39.2 23.1-64.5 16.4-71.1l-90.5-90.5c-3.1-3.1-10.1-7.4-20.6-7.7"/></svg>
+              <span class="flex-1 ml-3 text-left whitespace-nowrap">Chatons</span>
+            </NuxtLink>
+          </li>
         </ul>
         <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700"></ul>
       </div>

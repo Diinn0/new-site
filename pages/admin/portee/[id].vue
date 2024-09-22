@@ -94,11 +94,11 @@ if (childs === undefined) {
   childs = ref([]);
 }
 
-let addEmptyTest = () => {
+let addEmptyChildren = () => {
   childs.value.push('')
 }
 
-let removeTest = (index) => {
+let removeChildren = (index) => {
   childs.value.splice(index, 1);
 }
 
@@ -168,145 +168,7 @@ const submit = () => {
   })
 }
 
-// ---------------------------------------------------------------------------------------------------------
-// File upload
 
-let dropHandler = undefined;
-let dragEnterHandler = undefined;
-let dragLeaveHandler = undefined;
-let dragOverHandler = undefined;
-
-onMounted(() => {
-  const fileTempl = document.getElementById("file-template"),
-      imageTempl = document.getElementById("image-template"),
-      empty = document.getElementById("empty");
-
-  // check if file is of type image and prepend the initialied
-  // template to the target element
-  function addFile(target, file) {
-    const isImage = file.type.match("image.*"),
-        objectURL = URL.createObjectURL(file);
-
-    const clone = isImage
-        ? imageTempl.content.cloneNode(true)
-        : fileTempl.content.cloneNode(true);
-
-    clone.querySelector("h1").textContent = file.name;
-    clone.querySelector("li").id = objectURL;
-    clone.querySelector(".delete").dataset.target = objectURL;
-    clone.querySelector(".size").textContent =
-        file.size > 1024
-            ? file.size > 1048576
-                ? Math.round(file.size / 1048576) + "mb"
-                : Math.round(file.size / 1024) + "kb"
-            : file.size + "b";
-
-    isImage &&
-    Object.assign(clone.querySelector("img"), {
-      src: objectURL,
-      alt: file.name
-    });
-
-    empty.classList.add("hidden");
-    target.prepend(clone);
-
-    FILES[objectURL] = file;
-  }
-
-  gallery = document.getElementById("gallery");
-  const overlay = document.getElementById("overlay");
-
-  // click the hidden input of type file if the visible button is clicked
-  // and capture the selected files
-  const hidden = document.getElementById("hidden-input");
-  document.getElementById("button").onclick = () => hidden.click();
-  hidden.onchange = (e) => {
-    for (const file of e.target.files) {
-      addFile(gallery, file);
-    }
-  };
-
-  // use to check if a file is being dragged
-  const hasFiles = (ev) => {
-    return ev.dataTransfer.files.length > 0
-  };
-
-  // use to drag dragenter and dragleave events.
-  // this is to know if the outermost parent is dragged over
-  // without issues due to drag events on its children
-  let counter = 0;
-
-  // reset counter and append file to gallery when file is dropped
-  dropHandler = (ev) => {
-    console.log(ev)
-    ev.preventDefault();
-    for (const file of ev.dataTransfer.files) {
-      addFile(gallery, file);
-      overlay.classList.remove("draggedover");
-      counter = 0;
-    }
-  }
-
-  // only react to actual files being dragged
-  dragEnterHandler = (e) => {
-    e.preventDefault();
-    if (!hasFiles(e)) {
-      return;
-    }
-    ++counter && overlay.classList.add("draggedover");
-  }
-
-  dragLeaveHandler = (e) => {
-    1 > --counter && overlay.classList.remove("draggedover");
-  }
-
-  dragOverHandler = (e) => {
-    if (hasFiles(e)) {
-      e.preventDefault();
-    }
-  }
-
-  // event delegation to caputre delete events
-  // fron the waste buckets in the file preview cards
-  gallery.onclick = ({target}) => {
-    if (target.classList.contains("delete")) {
-      const ou = target.dataset.target;
-      document.getElementById(ou).remove(ou);
-      gallery.children.length === 1 && empty.classList.remove("hidden");
-      delete FILES[ou];
-    }
-  };
-
-  // clear entire selection
-  // document.getElementById("cancel").onclick = () => {
-  //   while (gallery.children.length > 0) {
-  //     gallery.lastChild.remove();
-  //   }
-  //   FILES = {};
-  //   empty.classList.remove("hidden");
-  //   gallery.append(empty);
-  // };
-
-})
-
-let removeImageFromFirestore = (ref) => {
-
-   deleteObject(ref).then(() => {
-     toast.add({
-       title: 'Image supprimé',
-       description: `L'image a été supprimé`,
-       timeout: 6000,
-       color: 'primary'
-     })
-      refreshImage()
-   }).catch((error) => {
-   });
-}
-
-let changeFavorite = (name) => {
-  portee.favorite = name;
-  submit();
-}
 
 
 </script>
@@ -330,24 +192,31 @@ let changeFavorite = (name) => {
                placeholder="Entrez le nom du chat femelle" required="">
       </div>
       <div>
+        <client-only>
         <label for="dateofbirth" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date de naissance prévu</label>
         <input v-model="datePrev" type="date" name="dateofbirth" id="dateofbirth" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
+          </client-only>
       </div>
       <div>
+        <client-only>
         <label for="dateofbirth" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date de naissance réelle</label>
         <input v-model="dateReel" type="date" name="dateofbirth" id="dateofbirth" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+        </client-only>
       </div>
       <div>
         <label for="pawpeds" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lien Pawpeds</label>
         <input v-model="portee.pawpedsLink" type="text" name="pawpeds" id="pawpeds" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Entrez le lien pawpeds (facultatif)">
       </div>
     </div>
+
+
+
     <div class="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
       <button type="submit"
               class="w-full sm:w-auto justify-center text-white inline-flex bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
         Sauvegarder
       </button>
-      <NuxtLink href="/admin/cats"
+      <NuxtLink href="/admin/portee"
                 class="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
         <svg class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd"

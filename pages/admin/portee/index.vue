@@ -16,7 +16,24 @@
   const toast = useToast()
   const db = useFirestore()
   const portees = useDocument(collection(db, 'portee'))
+  const chatons = useDocument(collection(db, 'chaton'))
 
+  let getChatons = (id) => {
+
+    let disp = 0;
+    let total = 0;
+    chatons.value.forEach((chaton) =>  {
+      if (chaton.portee == id) {
+        total++;
+        if (chaton.dispo == 0) {
+          disp++;
+        }
+      }
+    })
+
+    return disp + "/" + total;
+
+  }
 
 </script>
 
@@ -56,7 +73,7 @@
                 <td class="px-4 py-3 font-medium whitespace-nowrap text-blue-600">{{ portee.female }}</td>
                 <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{ portee.datePrev.toDate().toLocaleDateString("fr") }}</td>
                 <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{ portee.dateReel.toDate().toLocaleDateString("fr") }}</td>
-                <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{ portee.childs.length }}</td>
+                <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{ getChatons(portee.id) }}</td>
                 <td class="px-4 py-3 flex items-center justify-end">
 
                   <NuxtLink :href="'/admin/portee/' + portee.id" class="text-white bg-orange-400 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-orange-400 dark:hover:bg-orange-600 dark:focus:ring-orange-600">
